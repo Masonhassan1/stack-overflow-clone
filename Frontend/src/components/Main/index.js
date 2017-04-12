@@ -7,12 +7,11 @@ import withAuth from "../../pages/helpers/loginHoc";
 import Navbar from "../Navbar";
 
 const Index = (props) => {
-
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
   const { userData, isAuth } = props
   const [questions, setQuestions] = useState([]);
   const [search, setSearchKey] = useState("");
   const [error, setError] = useState("")
-  // const token = localStorage.getItem('token');
 
   useEffect(() => {
     fetchData();
@@ -21,7 +20,7 @@ const Index = (props) => {
   const fetchData = async () => {
     // get all questions
     try{
-      const reposnse = await axios.get("http://localhost:8000/api/question").then((res) => {
+      const reposnse = await axios.get(`${API_ENDPOINT}/api/question`).then((res) => {
         setQuestions(res.data.reverse())
       }).catch((err) => console.log(err))
     } catch(err){
