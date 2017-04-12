@@ -12,7 +12,7 @@ import Navbar from "../../components/Navbar";
 const AddQuestion = (props) => {
 
   const { userData, isAuth } = props;
-
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
   const [title, setTitle] = useState("");
   const [quill, setQuill] = useState("");
   const [tag, setTag] = useState([]);
@@ -31,7 +31,7 @@ const AddQuestion = (props) => {
           tags: JSON.stringify(tag),
           user: userData?.user?.username
         }
-        await axios.post("/api/question", data).then((res) => {
+        await axios.post(`${API_ENDPOINT}/api/question`, data).then((res) => {
           alert("Your question submitted successfully");
           setLoading(false)
           navigate('/')

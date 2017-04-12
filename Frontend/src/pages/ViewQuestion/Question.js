@@ -14,7 +14,7 @@ import withAuth from "../helpers/loginHoc";
 
 const Question = (props) => {
     const {userData, isAuth} = props
-
+    const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const [show, setShow] = useState(false);
     const [questionData, setquestionData] = useState([])
     const [comment, setComment] = useState("");
@@ -29,7 +29,7 @@ const Question = (props) => {
     // const token = localStorage.getItem('token');
 
     useEffect(() => {
-        axios.get(`http://localhost:8000/api/question/${id}`).then((res) => {
+        axios.get(`${API_ENDPOINT}/api/question/${id}`).then((res) => {
             setquestionData(res.data[0]);
         }).catch((err) => {
             console.log(err)
@@ -38,7 +38,7 @@ const Question = (props) => {
 
     const getUpdatedAnswer = async() => {
         await axios
-          .get(`http://localhost:8000/api/question/${id}`)
+          .get(`${API_ENDPOINT}/api/question/${id}`)
           .then((res) => setquestionData(res.data[0]))
           .catch((err) => {
             console.log(err)
@@ -54,7 +54,7 @@ const Question = (props) => {
         };
         if(!!comment){
             if(isAuth){
-                await axios.post(`http://localhost:8000/api/comment/${id}`, data).then((res) => {
+                await axios.post(`${API_ENDPOINT}/api/comment/${id}`, data).then((res) => {
                     setComment("");
                     setShow(false);
                     getUpdatedAnswer();
@@ -76,7 +76,7 @@ const Question = (props) => {
                     answer: answer,
                     user: userData?.user?.username,
                 }
-                await axios.post(`http://localhost:8000/api/answer`,data).then((res) => {
+                await axios.post(`${API_ENDPOINT}/api/answer`,data).then((res) => {
                     setAnswer("");
                     getUpdatedAnswer();
                 }).catch((err) =>{ 

@@ -17,6 +17,7 @@ import Navbar from '../../components/Navbar';
 const theme = createTheme();
 
 export default function Login() {
+  const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
   const [login, setLogin] = React.useState(true)
   const [auth, setAuth] = React.useState(false);
   const [error, setError] = React.useState("")
@@ -32,7 +33,7 @@ export default function Login() {
               formType: data.get('formType')
             }
           try{
-            const response = await axios.post("http://localhost:8000/login",signin)
+            const response = await axios.post(`${API_ENDPOINT}/login`,signin)
             .then((res) => {
               if(res.status === 200){
                 localStorage.setItem("token",res.data)
@@ -62,7 +63,7 @@ export default function Login() {
             formType: data.get('formType')
           }
           try{
-            await axios.post("http://localhost:8000/login",register)
+            await axios.post(`${API_ENDPOINT}/login`,register)
             .then((res) => {
               console.log("data",res)
               if(res.status === 200){
