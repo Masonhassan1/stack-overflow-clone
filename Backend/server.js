@@ -8,13 +8,13 @@ const app = express();
 const jwt = require("jsonwebtoken");
 const PORT = process.env.PORT || 8000;
 
-const router = require("./Routes");
+const router = require("./Routes/Index");
 
 app.use(express.json());
 app.use(cors());
 const middleware = require("./middleware");
 
-mongoose.connect(process.env.DB).then(
+mongoose.connect("mongodb+srv://vamsinayak:vamsig@cluster0.2d8evoi.mongodb.net/?retryWrites=true&w=majority").then(
     () => console.log("DB connected")
 );
 
