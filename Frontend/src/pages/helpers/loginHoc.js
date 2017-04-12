@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 const withAuth = (ComponentToProtect) => {
   const AuthenticatedComponent = (props) => {
     const [isLoading, setIsLoading] = useState(true);
+    const API_ENDPOINT = process.env.REACT_APP_API_ENDPOINT
     const [isAuthenticated,setIsAuthenticated] = useState(false);
     const [data, setData] = useState({});
     const token = localStorage.getItem('token');
@@ -15,7 +16,7 @@ const withAuth = (ComponentToProtect) => {
         const fetchData = async() => {
             if(!!token){
                 try{
-                    const reponse = await axios('http://localhost:8000/user',{headers: {"Authorization" : `Bearer ${token}`} })
+                    const reponse = await axios(`${API_ENDPOINT}/user`,{headers: {"Authorization" : `Bearer ${token}`} })
                         .then((res) => {
                         if (res.status === 200) {
                             setIsLoading(false);
